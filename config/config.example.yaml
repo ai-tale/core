@@ -1,0 +1,109 @@
+# AI Tale Core Configuration Example
+
+# Language Model Configuration
+llm:
+  # Provider options: openai, anthropic, google, cohere, mock
+  provider: openai
+  # Enable fallback to other providers if primary fails
+  use_fallback: true
+  # List of fallback providers to try if primary fails
+  fallback_providers: ["anthropic", "google", "mock"]
+  # API key (recommended to use environment variable instead)
+  api_key: "your_openai_api_key_here"
+  # Model to use
+  model: "gpt-4"
+  # Generation parameters
+  temperature: 0.7
+  max_tokens: 1000
+  top_p: 1.0
+  frequency_penalty: 0.0
+  presence_penalty: 0.0
+  
+  # Alternative provider configurations
+  # Uncomment and configure as needed
+  
+  # Anthropic (Claude) configuration
+  # anthropic:
+  #   api_key: "your_anthropic_api_key_here"
+  #   model: "claude-3-opus-20240229"
+  #   temperature: 0.7
+  #   max_tokens: 1000
+  
+  # Google (Gemini) configuration
+  # google:
+  #   api_key: "your_google_api_key_here"
+  #   model: "gemini-pro"
+  #   temperature: 0.7
+  #   max_tokens: 1000
+  #   top_k: 40
+  
+  # Cohere configuration
+  # cohere:
+  #   api_key: "your_cohere_api_key_here"
+  #   model: "command"
+  #   temperature: 0.7
+  #   max_tokens: 1000
+
+# Image Generation Configuration
+image:
+  # Provider options: openai, stability, mock
+  provider: openai
+  # API key (recommended to use environment variable instead)
+  api_key: "your_openai_api_key_here"
+  # Model to use
+  model: "dall-e-3"
+  # Image size
+  size: "1024x1024"
+  # Quality (standard or hd)
+  quality: "standard"
+  # Style (vivid or natural)
+  style: "vivid"
+
+# Story Templates
+# These templates are used to generate different sections of the story
+# Available variables: {{theme}}, {{age_group}}, {{protagonist}}, {{section_prompt}}
+story_templates:
+  introduction: "Write an engaging introduction for a children's fairy tale about {{theme}}. The story is for children aged {{age_group}}. {{section_prompt}}"
+  conflict: "Write the conflict section of a children's fairy tale about {{theme}}. The story is for children aged {{age_group}}. {{section_prompt}}"
+  rising_action: "Write the rising action section of a children's fairy tale about {{theme}}. The story is for children aged {{age_group}}. {{section_prompt}}"
+  climax: "Write the climax section of a children's fairy tale about {{theme}}. The story is for children aged {{age_group}}. {{section_prompt}}"
+  resolution: "Write the resolution section of a children's fairy tale about {{theme}}. The story is for children aged {{age_group}}. {{section_prompt}}"
+  epilogue: "Write a brief epilogue for a children's fairy tale about {{theme}}. The story is for children aged {{age_group}}. {{section_prompt}}"
+
+# Default Story Parameters
+default_story_params:
+  theme: "adventure"
+  age_group: "6-8"
+  length: "medium"
+
+# Content Validation Configuration
+validation:
+  # Patterns to ban in generated content
+  banned_patterns:
+    - "\\b(kill|murder|blood|gore|violent|suicide|drug|cocaine|heroin)\\b"
+    - "\\b(sex|sexual|naked|nude|explicit)\\b"
+  
+  # Age-appropriate rules for different age groups
+  age_appropriate_rules:
+    "3-5":
+      max_sentence_length: 10
+      avoid_scary_content: true
+      max_complexity_score: 30
+    "6-8":
+      max_sentence_length: 15
+      avoid_scary_content: true
+      max_complexity_score: 50
+    "9-12":
+      max_sentence_length: 20
+      avoid_scary_content: false
+      max_complexity_score: 70
+
+# Illustration Configuration
+illustration:
+  default_style: "children's book illustration"
+  default_num_illustrations: 5
+
+# Export Configuration
+export:
+  default_format: "html"
+  template_dir: "templates"
